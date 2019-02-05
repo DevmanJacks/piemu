@@ -51,7 +51,7 @@ void write_word(uint32_t addr, uint32_t value) {
     assert(0);
 }
 
-void load_memory_from_file(char *filename, uint32_t addr) {
+int load_memory_from_file(char *filename, uint32_t addr) {
 	FILE *f = fopen(filename, "rb");
 
 	if (f == NULL) { 
@@ -69,4 +69,5 @@ void load_memory_from_file(char *filename, uint32_t addr) {
 	}
 
 	fclose(f);
+    return size / 4;
 }

@@ -1,2 +1,3 @@
 piemu
 obj/*.o
+kernel.img

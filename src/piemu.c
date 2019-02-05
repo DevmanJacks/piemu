@@ -8,6 +8,7 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 #include "cpu.h"
 #include "debugger.h"
 #include "disassemble.h"
@@ -23,5 +24,18 @@ void power_on() {
 }
 
 int main(int argc, char **argv) {
-	power_on();
+	if (argc > 1) {
+		if (strcmp(argv[1], "-d") == 0) {
+			int size_in_words = load_memory_from_file("kernel.img", START_ADDR);
+
+			for (int i = 0; i < size_in_words; i++) {
+				printf("%s\n", disassemble(START_ADDR + i * 4));
+			}
+		} else {
+			fprintf(stderr, "piemu: illegal option %s\n", argv[1]);
+			fprintf(stderr, "usage: piemu [-d]\n\n");
+		}
+	} else {
+		power_on();
+	}
 }
